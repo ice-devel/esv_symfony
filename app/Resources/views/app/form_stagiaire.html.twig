@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(formStagiaire) }}
+        {{ form_row(formStagiaire.name) }}
+        {{ form_row(formStagiaire.phone) }}
+        {{ form_row(formStagiaire.birthday) }}
+        {{ form_row(formStagiaire.competences) }}
+
+        <input type="submit" value="Enregistrer" />
+
+        {# si un champ n'a pas été ajouté, form_end va l'afficher quoi qu'il arrive #}
+    {{ form_end(formStagiaire) }}
+{% endblock %}

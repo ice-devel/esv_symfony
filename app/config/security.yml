@@ -1,17 +1,41 @@
 # To get started with security, check out the documentation:
 # https://symfony.com/doc/current/security.html
 security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    admin: {password: passAdmin, roles: [ROLE_ADMIN]}
+        # ici vous pouvez ajouter votre provider, pour que votre entité user soit
+        # reconnu comme une classe User valide pour symfony
+        # ce qui permettra au framework de faire les requêtes en base
+        # pour la connexion (et autres...) automatiquement
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN]
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        form:
+            pattern: ^/form
+            anonymous: true
+            # préciser le formulaire d'identification pour ce firewall
+            form_login:
+                login_path: /form/login
+                check_path: /form/login-check
+                default_target_path: /form/stagiaire
+            logout:
+                path: /form/logout
+                target: /form/login
 
         main:
             anonymous: ~
@@ -22,3 +46,8 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+
+    access_control:
+    - { path: /form/login-check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: /form/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/form, roles: ROLE_ADMIN }

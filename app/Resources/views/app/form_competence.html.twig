@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(formCompetence) }}
+        {{ form_row(formCompetence.name) }}
+
+        <input type="submit" value="Enregistrer" />
+
+        {# si un champ n'a pas été ajouté, form_end va l'afficher quoi qu'il arrive #}
+    {{ form_end(formCompetence) }}
+{% endblock %}

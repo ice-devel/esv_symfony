@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ESV Javascript</title>
+    </head>
+
+    <body>
+    <!--
+    1- Créer une page web html
+    <br>
+    2- Dans une balise <script> déclarer une variable de type tableau, ajoutez-y (push) trois éléments, puis afficher grâce à une boucle les différents éléments de ce tableau dans une alert.
+    <br>
+    3- Créer un bouton "ajouter un div" dans la page web. En javascript, écouter (addEventListener) le clic sur ce bouton. Lors du clic, un élément <div> doit être ajouté dans la page web.
+    -->
+
+    <button id="add_div">Ajouter un div</button>
+
+    <script>
+        // question 2
+        var tableau = [];
+        tableau.push("salut");
+        tableau.push(15);
+        tableau.push("bonjour");
+
+        var i;
+        for (i=0; i < tableau.length; i++) {
+            alert(tableau[i]);
+        }
+
+
+        // question 3
+        var btnAddDiv = document.querySelector("#add_div");
+        btnAddDiv.addEventListener("click", function() {
+            var newDiv = document.createElement('div');
+            newDiv.style.width = "100px";
+            newDiv.style.height = "100px";
+            newDiv.style.border = "1px solid green";
+            document.body.appendChild(newDiv);
+        });
+    </script>
+    </body>
+</html>
